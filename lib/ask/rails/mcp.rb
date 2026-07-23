@@ -82,6 +82,34 @@ module Ask
           success_response(id, result)
         end
 
+        # Start the MCP stdio server, auto-loading the Rails app.
+        #
+        #   $ ask-rails-mcp
+        #
+        # The server will listen for JSON-RPC messages on stdin and write
+        # responses to stdout — the standard MCP stdio transport. Register
+        # this executable as an MCP server in your client configuration:
+        #
+        #   "mcp": {
+        #     "servers": {
+        #       "ask-rails-mcp": {
+        #         "type": "stdio",
+        #         "command": "ask-rails-mcp",
+        #         "args": []
+        #       }
+        #     }
+        #   }
+        def start
+          load_rails_app
+
+          Ask::MCP::Server.start_stdio(
+            name: "ask-rails-mcp",
+            tools: tools,
+            capabilities: { tools: {} },
+            debug: ENV["DEBUG"] == "1"
+          )
+        end
+
         # Get or clear the cache (useful in tests).
         def reset!
           @tools = nil
@@ -90,6 +118,14 @@ module Ask
         end
 
         private
+
+        def load_rails_app
+          return if defined?(::Rails) && ::Rails.application
+          require File.expand_path("config/environment")
+        rescue LoadError
+          warn "ask-rails-mcp: must be run from your Rails app root (config/environment.rb not found)"
+          exit 1
+        end
 
         def success_response(id, result)
           { "jsonrpc" => "2.0", "id" => id, "result" => deep_stringify_keys(result) }

@@ -12,6 +12,33 @@ bundle add ask-rails-mcp
 
 ## Usage
 
+### Option 1: stdio (local development — recommended)
+
+Run from your Rails app root:
+
+```bash
+cd my-rails-app
+ask-rails-mcp
+```
+
+This boots your Rails app and starts an MCP stdio server. Configure in `~/.zcode/cli/config.json` (or your agent's MCP config):
+
+```json
+{
+  "mcp": {
+    "servers": {
+      "ask-rails-mcp": {
+        "type": "stdio",
+        "command": "ask-rails-mcp",
+        "args": []
+      }
+    }
+  }
+}
+```
+
+### Option 2: HTTP endpoint (remote/production)
+
 Mount in `config/routes.rb` behind your existing auth:
 
 ```ruby
@@ -22,14 +49,14 @@ Rails.application.routes.draw do
 end
 ```
 
-Then configure any MCP-compatible agent to connect to your app. For example, in Claude Code's `~/.claude/settings.json`:
+Then configure any MCP-compatible agent:
 
 ```json
 {
   "mcp": {
     "servers": {
       "ask-rails-mcp": {
-        "type": "url",
+        "type": "http",
         "url": "https://myapp.com/ask/mcp"
       }
     }

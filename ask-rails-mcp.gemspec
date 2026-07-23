@@ -24,7 +24,9 @@ Gem::Specification.new do |spec|
   spec.metadata["source_code_uri"] = spec.homepage
   spec.metadata["changelog_uri"] = "https://github.com/ask-rb/ask-rails-mcp/blob/master/CHANGELOG.md"
 
-  spec.files = Dir["lib/**/*", "LICENSE", "README.md", "CHANGELOG.md"]
+  spec.files = Dir["lib/**/*", "bin/*", "LICENSE", "README.md", "CHANGELOG.md"]
+  spec.bindir = "bin"
+  spec.executables = ["ask-rails-mcp"]
   spec.require_paths = ["lib"]
 
   spec.add_dependency "ask-rails", ">= 0.10"

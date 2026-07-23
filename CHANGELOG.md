@@ -1,3 +1,10 @@
+## [0.2.0] — 2026-07-23
+
+### Added
+
+- **stdio transport** — `Ask::Rails::MCP.start` boots the Rails app and starts a stdio MCP server. Run `ask-rails-mcp` from your Rails app root.
+- **`bin/ask-rails-mcp`** — CLI entry point for local development. No web server needed.
+
 ## [0.1.0] — 2026-07-23
 
 ### Added
