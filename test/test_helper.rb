@@ -2,7 +2,7 @@ $LOAD_PATH.unshift File.expand_path("../lib", __dir__)
 
 # Prepend local ask-rb gem paths (prefer local over installed)
 ask_rb_root = File.expand_path("../..", __dir__)
-%w[ask-core ask-tools ask-tools-shell ask-schema ask-auth ask-instrumentation ask-llm-providers ask-agent ask-rails ask-mcp ask-rails-mcp].each do |gem|
+%w[ask-core ask-tools ask-tools-shell ask-schema ask-auth ask-instrumentation ask-llm-providers ask-agent ask-rails-harness ask-mcp ask-rails-harness-mcp].each do |gem|
   lib = File.join(ask_rb_root, gem, "lib")
   $LOAD_PATH.unshift lib if File.directory?(lib)
 end
@@ -25,6 +25,6 @@ module Rails
   end
 end
 
-require "ask-rails-mcp"
+require "ask-rails-harness-mcp"
 require "minitest/autorun"
 require "mocha/minitest"

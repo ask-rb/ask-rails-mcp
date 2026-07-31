@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "ask/rails"
+require "ask/rails/harness"
 require "ask/mcp"
 require_relative "mcp/version"
 
@@ -10,9 +10,9 @@ module Ask
       PROTOCOL_VERSION = "2025-06-18"
 
       class << self
-        # All ask-rails tools wrapped as MCP tool instances.
+        # All ask-rails-harness tools wrapped as MCP tool instances.
         def tools
-          @tools ||= Ask::Rails::CORE_RAILS_TOOLS.map(&:new)
+          @tools ||= Ask::Rails::Harness::CORE_RAILS_TOOLS.map(&:new)
         end
 
         # Tool server adapter that dispatches tools/call requests.
@@ -61,7 +61,7 @@ module Ask
             "protocolVersion" => client_version,
             "capabilities" => { "tools" => {} },
             "serverInfo" => {
-              "name" => "ask-rails-mcp",
+              "name" => "ask-rails-harness-mcp",
               "version" => Ask::Rails::MCP::VERSION
             }
           })
@@ -84,7 +84,7 @@ module Ask
 
         # Start the MCP stdio server, auto-loading the Rails app.
         #
-        #   $ ask-rails-mcp
+        #   $ ask-rails-harness-mcp
         #
         # The server will listen for JSON-RPC messages on stdin and write
         # responses to stdout — the standard MCP stdio transport. Register
@@ -92,9 +92,9 @@ module Ask
         #
         #   "mcp": {
         #     "servers": {
-        #       "ask-rails-mcp": {
+        #       "ask-rails-harness-mcp": {
         #         "type": "stdio",
-        #         "command": "ask-rails-mcp",
+        #         "command": "ask-rails-harness-mcp",
         #         "args": []
         #       }
         #     }
@@ -103,7 +103,7 @@ module Ask
           load_rails_app
 
           Ask::MCP::Server.start_stdio(
-            name: "ask-rails-mcp",
+            name: "ask-rails-harness-mcp",
             tools: tools,
             capabilities: { tools: {} },
             debug: ENV["DEBUG"] == "1"
@@ -123,7 +123,7 @@ module Ask
           return if defined?(::Rails) && ::Rails.application
           require File.expand_path("config/environment")
         rescue LoadError
-          warn "ask-rails-mcp: must be run from your Rails app root (config/environment.rb not found)"
+          warn "ask-rails-harness-mcp: must be run from your Rails app root (config/environment.rb not found)"
           exit 1
         end
 

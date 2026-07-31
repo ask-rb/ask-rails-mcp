@@ -4,7 +4,7 @@ gemspec
 
 # Local development — use local paths for ask-rb gems
 ask_rb_root = File.expand_path("..", __dir__)
-%w[ask-core ask-tools ask-tools-shell ask-schema ask-auth ask-instrumentation ask-llm-providers ask-agent ask-rails ask-mcp].each do |gem_name|
+%w[ask-core ask-tools ask-tools-shell ask-schema ask-auth ask-instrumentation ask-llm-providers ask-agent ask-rails-harness ask-mcp].each do |gem_name|
   gem gem_name, path: File.join(ask_rb_root, gem_name)
 end
 

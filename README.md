@@ -1,13 +1,13 @@
-# ask-rails-mcp
+# ask-rails-harness-mcp
 
-MCP server for Rails app introspection. Exposes all [ask-rails](https://github.com/ask-rb/ask-rails) tools over the [Model Context Protocol](https://modelcontextprotocol.io/).
+MCP server for Rails app introspection. Exposes all [ask-rails-harness](https://github.com/ask-rb/ask-rails-harness) tools over the [Model Context Protocol](https://modelcontextprotocol.io/).
 
-Coding agents like Claude Code, Cursor, or any MCP-compatible client can connect to inspect your Rails schema, query your database, read models, and more — all through the same tools ask-rails uses internally.
+Coding agents like Claude Code, Cursor, or any MCP-compatible client can connect to inspect your Rails schema, query your database, read models, and more — all through the same tools ask-rails-harness uses internally.
 
 ## Installation
 
 ```bash
-bundle add ask-rails-mcp
+bundle add ask-rails-harness-mcp
 ```
 
 ## Usage
@@ -18,18 +18,18 @@ Run from your Rails app root:
 
 ```bash
 cd my-rails-app
-ask-rails-mcp
+ask-rails-harness-mcp
 ```
 
-This boots your Rails app and starts an MCP stdio server. Configure in `~/.zcode/cli/config.json` (or your agent's MCP config):
+This boots your Rails app and starts an MCP stdio server. Configure in your agent's MCP config:
 
 ```json
 {
   "mcp": {
     "servers": {
-      "ask-rails-mcp": {
+      "ask-rails-harness-mcp": {
         "type": "stdio",
-        "command": "ask-rails-mcp",
+        "command": "ask-rails-harness-mcp",
         "args": []
       }
     }
@@ -55,7 +55,7 @@ Then configure any MCP-compatible agent:
 {
   "mcp": {
     "servers": {
-      "ask-rails-mcp": {
+      "ask-rails-harness-mcp": {
         "type": "http",
         "url": "https://myapp.com/ask/mcp"
       }
@@ -80,17 +80,17 @@ The agent discovers 9 tools automatically:
 
 ### Authentication
 
-The MCP endpoint uses the same `Ask::Rails::Auth` system as the chat UI:
+The MCP endpoint uses the same `Ask::Rails::Harness::Auth` system as the chat UI:
 
 ```ruby
-Ask::Rails::Auth.check = -> {
+Ask::Rails::Harness::Auth.check = -> {
   redirect_to main_app.login_path unless current_user&.admin?
 }
 ```
 
 ### Safety
 
-All ask-rails safety features apply automatically:
+All ask-rails-harness safety features apply automatically:
 - **Permissions** — access modes (`:read_only`, `:ask_before_changes`, `:full_access`)
 - **Command allowlists** — `allowed_commands` / `denied_commands` for `RunCommand`
 - **Write guards** — `INSERT`/`UPDATE`/`DELETE` blocked by `QueryDatabase`

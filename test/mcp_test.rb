@@ -58,7 +58,7 @@ class McpTest < Minitest::Test
 
   def test_tool_server_defines_all_tools
     defs = Ask::Rails::MCP.tool_server.definitions
-    assert_equal 9, defs.length, "Should define all 9 ask-rails tools"
+    assert_equal 9, defs.length, "Should define all 9 ask-rails-harness tools"
 
     def_names = defs.map { |d| d[:name] }
     %w[schema_graph query_database read_model route_inspector read_log
@@ -91,7 +91,7 @@ class McpTest < Minitest::Test
     assert result["result"].key?("protocolVersion")
     assert result["result"].key?("capabilities")
     assert result["result"].key?("serverInfo")
-    assert_equal "ask-rails-mcp", result["result"]["serverInfo"]["name"]
+    assert_equal "ask-rails-harness-mcp", result["result"]["serverInfo"]["name"]
   end
 
   # --- MCP Protocol: tools/list ---
