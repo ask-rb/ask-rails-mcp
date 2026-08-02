@@ -1,8 +1,8 @@
 # ask-rails-harness-mcp
 
-MCP server for Rails app introspection. Exposes all [ask-rails-harness](https://github.com/ask-rb/ask-rails-harness) tools over the [Model Context Protocol](https://modelcontextprotocol.io/).
+[![Gem Version](https://badge.fury.io/rb/ask-rails-harness-mcp.svg)](https://badge.fury.io/rb/ask-rails-harness-mcp)
 
-Coding agents like Claude Code, Cursor, or any MCP-compatible client can connect to inspect your Rails schema, query your database, read models, and more — all through the same tools ask-rails-harness uses internally.
+MCP server for Rails app introspection. Exposes all [ask-rails-harness](https://github.com/ask-rb/ask-rails-harness) tools over the [Model Context Protocol](https://modelcontextprotocol.io/), so coding agents like Claude Code and Cursor can inspect your Rails schema, query your database, read models, and more.
 
 ## Installation
 
@@ -10,18 +10,16 @@ Coding agents like Claude Code, Cursor, or any MCP-compatible client can connect
 bundle add ask-rails-harness-mcp
 ```
 
-## Usage
+## Quick Start
 
-### Option 1: stdio (local development — recommended)
-
-Run from your Rails app root:
+Run from your Rails app root. The server boots your app and speaks MCP over stdio (stdin/stdout):
 
 ```bash
 cd my-rails-app
 ask-rails-harness-mcp
 ```
 
-This boots your Rails app and starts an MCP stdio server. Configure in your agent's MCP config:
+Configure it in your agent's MCP config:
 
 ```json
 {
@@ -37,38 +35,15 @@ This boots your Rails app and starts an MCP stdio server. Configure in your agen
 }
 ```
 
-### Option 2: HTTP endpoint (remote/production)
+stdio is the only shipped transport.
 
-Mount in `config/routes.rb` behind your existing auth:
+## Tools
 
-```ruby
-Rails.application.routes.draw do
-  authenticate :user, ->(u) { u.admin? } do
-    post "ask/mcp", to: "ask/rails/mcp#handle"
-  end
-end
-```
-
-Then configure any MCP-compatible agent:
-
-```json
-{
-  "mcp": {
-    "servers": {
-      "ask-rails-harness-mcp": {
-        "type": "http",
-        "url": "https://myapp.com/ask/mcp"
-      }
-    }
-  }
-}
-```
-
-The agent discovers 9 tools automatically:
+The agent discovers 9 tools:
 
 | Tool | What it does |
 |---|---|
-| `schema_graph` | Full schema introspection — all models, tables, columns, associations, validations |
+| `schema_graph` | Full schema introspection: models, tables, columns, associations |
 | `query_database` | Read-only SQL queries with safety guards |
 | `read_model` | Introspect a single ActiveRecord model |
 | `route_inspector` | Parsed route table with filters |
@@ -78,23 +53,26 @@ The agent discovers 9 tools automatically:
 | `run_command` | Run shell commands in the app root |
 | `read_routes` | Read the raw `config/routes.rb` |
 
-### Authentication
+## Essential API
 
-The MCP endpoint uses the same `Ask::Rails::Harness::Auth` system as the chat UI:
+`Ask::Rails::MCP` exposes four entry points:
+
+- `start`: start the stdio server (what the `ask-rails-harness-mcp` binary runs)
+- `handle(json_string)`: handle a raw JSON-RPC message string
+- `process_message(msg)`: handle a parsed JSON-RPC message hash
+- `tools`: the 9 harness tools as MCP tool instances
+
+To serve MCP from your own endpoint, parse the request body and return the response hash:
 
 ```ruby
-Ask::Rails::Harness::Auth.check = -> {
-  redirect_to main_app.login_path unless current_user&.admin?
-}
+render json: Ask::Rails::MCP.process_message(JSON.parse(request.body.read))
 ```
 
-### Safety
+All ask-rails-harness safety features apply: environment permission modes, `allowed_commands`/`denied_commands`, read-only query guards, and audit logging of every tool call.
 
-All ask-rails-harness safety features apply automatically:
-- **Permissions** — access modes (`:read_only`, `:ask_before_changes`, `:full_access`)
-- **Command allowlists** — `allowed_commands` / `denied_commands` for `RunCommand`
-- **Write guards** — `INSERT`/`UPDATE`/`DELETE` blocked by `QueryDatabase`
-- **Audit log** — every tool call recorded in `ask_audit_logs`
+## Full documentation
+
+The full ask-rb documentation lives at https://ask-rb.github.io/ask-docs. [Rails MCP](https://ask-rb.github.io/ask-docs/rails/mcp) covers ask-rails-harness-mcp in depth. API reference: https://ask-rb.github.io/ask-docs/reference/api.
 
 ## Development
 
