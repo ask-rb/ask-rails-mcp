@@ -1,3 +1,9 @@
+## [0.2.1] — 2026-08-08
+
+### Fixed
+
+- **Boot under the app's Bundler context** — the `ask-rails-harness-mcp` binary now requires `bundler/setup` before loading the gem, so gem versions resolve against the host app's `Gemfile.lock` instead of whatever is newest on the system. Without this, loading the harness could activate conflicting gem versions (e.g. two `securerandom` releases) and abort the app boot with a misleading "config/environment.rb not found" error. The gem must be present in the app's Gemfile (`bundle add ask-rails-harness-mcp`); a clear hint is printed if it isn't.
+
 ## [0.2.0] — 2026-07-23
 
 ### Added

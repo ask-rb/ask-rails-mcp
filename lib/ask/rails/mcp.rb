@@ -100,7 +100,8 @@ module Ask
         #     }
         #   }
         def start
-          load_rails_app
+          load_rails_app_quietly
+          silence_stdout_loggers
 
           Ask::MCP::Server.start_stdio(
             name: "ask-rails-harness-mcp",
@@ -119,11 +120,41 @@ module Ask
 
         private
 
+        # Boot the app with stdout pointed at stderr: Rails/OTel loggers
+        # default to STDOUT in development, and boot-time output would
+        # corrupt the JSON-RPC stream the server writes to stdout.
+        def load_rails_app_quietly
+          real_stdout = STDOUT.dup
+          STDOUT.reopen(STDERR)
+          begin
+            load_rails_app
+          ensure
+            STDOUT.reopen(real_stdout)
+          end
+        end
+
+        # Point app loggers at stderr so tool calls (AR queries, shell
+        # commands, ...) can't interleave with JSON-RPC responses.
+        def silence_stdout_loggers
+          require "logger"
+          $stderr.sync = true
+          stderr_logger = ::Logger.new($stderr)
+          stderr_logger.level = ::Logger::INFO
+          if defined?(OpenTelemetry) && OpenTelemetry.respond_to?(:logger=)
+            OpenTelemetry.logger = stderr_logger
+          end
+          return unless defined?(Rails)
+
+          Rails.logger = stderr_logger if Rails.respond_to?(:logger=)
+          ActiveRecord::Base.logger = stderr_logger if defined?(ActiveRecord::Base)
+        end
+
         def load_rails_app
           return if defined?(::Rails) && ::Rails.application
           require File.expand_path("config/environment")
-        rescue LoadError
-          warn "ask-rails-harness-mcp: must be run from your Rails app root (config/environment.rb not found)"
+        rescue LoadError => e
+          warn "ask-rails-harness-mcp: failed to boot the Rails app: #{e.message}"
+          warn "Run it from your Rails app root with the gem in the Gemfile (bundle add ask-rails-harness-mcp)."
           exit 1
         end
 

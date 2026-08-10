@@ -1,6 +1,29 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require "ask-rails-harness-mcp"
+# Boot the host Rails app's Bundler environment BEFORE loading the gem, so
+# gem versions (rails, securerandom, ...) resolve against the app's
+# Gemfile.lock instead of whatever is newest on the system. Loading the
+# harness against the newest gems can activate conflicting versions and
+# break the app boot with a misleading "config/environment.rb not found"
+# error. Requires the gem to be present in the app's Gemfile.
+begin
+  require "bundler/setup"
+rescue StandardError => e
+  # The rubygems bin stub activates the gem's newest dependencies before
+  # this script runs, which can conflict with the app's pinned versions.
+  # Prefer running via `bundle exec`; fall back to plain resolution and
+  # let Ask::Rails::MCP.start report the missing app root.
+  warn "ask-rails-harness-mcp: bundler/setup failed (#{e.class}: #{e.message})"
+  warn "If you're inside a Rails app, run: bundle exec ask-rails-harness-mcp"
+end
+
+begin
+  require "ask-rails-harness-mcp"
+rescue LoadError => e
+  warn "ask-rails-harness-mcp: cannot load the gem (#{e.message})"
+  warn "If you're inside a Rails app, add it to your Gemfile first: bundle add ask-rails-harness-mcp"
+  exit 1
+end
 
 Ask::Rails::MCP.start
