@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    ask-rails-harness-mcp (0.2.1)
+    ask-rails-harness-mcp (0.2.2)
       ask-mcp (>= 0.4.5)
       ask-rails-harness (>= 0.1)
       rails (>= 7.1)
@@ -373,7 +373,7 @@ CHECKSUMS
   ask-llm-providers (0.12.0)
   ask-mcp (0.4.5)
   ask-rails-harness (0.4.0)
-  ask-rails-harness-mcp (0.2.1)
+  ask-rails-harness-mcp (0.2.2)
   ask-ruby-harness (0.3.1) sha256=b8b18f2e625770601170ccbb72bb89c04cc98600e7b63105f3fc5ed9f673b19f
   ask-sandbox-providers (0.1.2) sha256=388d2486d6d8f0b78a5fc87f90d56095892f88dff6197b74e081ea96833c0500
   ask-schema (0.1.1)
