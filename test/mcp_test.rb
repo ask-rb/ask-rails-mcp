@@ -41,14 +41,9 @@ class McpTest < Minitest::Test
     assert_includes names, "read_log"
   end
 
-  def test_tools_include_search_codebase
+  def test_tools_include_run_tests
     names = Ask::Rails::MCP.tools.map(&:name)
-    assert_includes names, "search_codebase"
-  end
-
-  def test_tools_include_read_file
-    names = Ask::Rails::MCP.tools.map(&:name)
-    assert_includes names, "read_file"
+    assert_includes names, "run_tests"
   end
 
   def test_tools_include_run_command
@@ -58,11 +53,11 @@ class McpTest < Minitest::Test
 
   def test_tool_server_defines_all_tools
     defs = Ask::Rails::MCP.tool_server.definitions
-    assert_equal 9, defs.length, "Should define all 9 ask-rails-harness tools"
+    assert_equal 7, defs.length, "Should define all 7 ask-rails-harness tools"
 
     def_names = defs.map { |d| d[:name] }
     %w[schema_graph query_database read_model route_inspector read_log
-       search_codebase read_file run_command read_routes].each do |name|
+       run_command run_tests].each do |name|
       assert_includes def_names, name, "Missing tool: #{name}"
     end
   end
@@ -107,7 +102,7 @@ class McpTest < Minitest::Test
     assert result.key?("result")
     tools = result["result"]["tools"]
     assert_kind_of Array, tools
-    assert_operator tools.length, :>=, 9, "Should have at least 9 tools"
+    assert_operator tools.length, :>=, 7, "Should have at least 7 tools"
 
     tool_names = tools.map { |t| t["name"] }
     assert_includes tool_names, "schema_graph"
