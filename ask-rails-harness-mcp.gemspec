@@ -30,7 +30,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_dependency "ask-rails-harness", ">= 0.1"
-  spec.add_dependency "ask-mcp", ">= 0.1"
+  spec.add_dependency "ask-mcp", ">= 0.4.5"
   spec.add_dependency "rails", ">= 7.1"
 
   spec.add_development_dependency "minitest", "~> 5.25"
