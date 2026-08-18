@@ -2,7 +2,7 @@ PATH
   remote: .
   specs:
     ask-rails-harness-mcp (0.2.3)
-      ask-mcp (>= 0.4.5)
+      ask-mcp (>= 0.4.6)
       ask-rails-harness (>= 0.1)
       rails (>= 7.1)
 
@@ -50,7 +50,7 @@ PATH
 PATH
   remote: /Users/kaka/Code/ask-rb/ask-mcp
   specs:
-    ask-mcp (0.4.5)
+    ask-mcp (0.4.6)
       base64
       httpx (~> 1.4)
       json-schema (~> 5.0)
@@ -381,7 +381,7 @@ CHECKSUMS
   ask-core (0.11.3)
   ask-instrumentation (0.2.1)
   ask-llm-providers (0.12.2)
-  ask-mcp (0.4.5)
+  ask-mcp (0.4.6)
   ask-rails-harness (0.4.2)
   ask-rails-harness-mcp (0.2.3)
   ask-ruby-harness (0.3.5) sha256=f71651322986673343d8887e8aea93b1a0879df447f1959fffbed3053bb010de
