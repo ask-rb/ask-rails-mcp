@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    ask-rails-harness-mcp (0.2.2)
+    ask-rails-harness-mcp (0.2.3)
       ask-mcp (>= 0.4.5)
       ask-rails-harness (>= 0.1)
       rails (>= 7.1)
@@ -9,25 +9,26 @@ PATH
 PATH
   remote: /Users/kaka/Code/ask-rb/ask-agent
   specs:
-    ask-agent (0.40.0)
-      ask-core (>= 0.1)
+    ask-agent (0.40.7)
+      ask-core (>= 0.11.3)
       ask-instrumentation (>= 0.1)
       ask-llm-providers (>= 0.1)
       ask-skills (>= 0.1)
-      ask-state-providers (>= 0.1)
-      ask-tools (>= 0.1)
+      ask-state-providers (>= 0.4.6)
+      ask-tools (>= 0.6.2)
       rufus-scheduler (~> 3.9)
 
 PATH
   remote: /Users/kaka/Code/ask-rb/ask-auth
   specs:
-    ask-auth (0.3.1)
+    ask-auth (0.3.2)
       base64 (~> 0.2)
 
 PATH
   remote: /Users/kaka/Code/ask-rb/ask-core
   specs:
-    ask-core (0.11.2)
+    ask-core (0.11.3)
+      base64 (~> 0.2)
 
 PATH
   remote: /Users/kaka/Code/ask-rb/ask-instrumentation
@@ -38,9 +39,9 @@ PATH
 PATH
   remote: /Users/kaka/Code/ask-rb/ask-llm-providers
   specs:
-    ask-llm-providers (0.12.0)
-      ask-auth (>= 0.1)
-      ask-core (>= 0.7.0)
+    ask-llm-providers (0.12.2)
+      ask-auth (>= 0.3.2)
+      ask-core (>= 0.11.3)
       base64 (~> 0.2)
       faraday (>= 2.0)
       faraday-multipart (>= 1.0)
@@ -57,29 +58,29 @@ PATH
 PATH
   remote: /Users/kaka/Code/ask-rb/ask-rails-harness
   specs:
-    ask-rails-harness (0.4.0)
-      ask-auth (>= 0.1)
-      ask-ruby-harness (>= 0.1)
+    ask-rails-harness (0.4.2)
+      ask-auth (>= 0.3.2)
+      ask-ruby-harness (>= 0.3.2)
       rails (>= 7.1)
 
 PATH
   remote: /Users/kaka/Code/ask-rb/ask-schema
   specs:
-    ask-schema (0.1.1)
+    ask-schema (0.1.2)
 
 PATH
   remote: /Users/kaka/Code/ask-rb/ask-tools-shell
   specs:
-    ask-tools-shell (0.5.1)
+    ask-tools-shell (0.6.0)
       ask-sandbox-providers (>= 0.1)
-      ask-tools (>= 0.1)
+      ask-tools (>= 0.6.2)
 
 PATH
   remote: /Users/kaka/Code/ask-rb/ask-tools
   specs:
-    ask-tools (0.6.0)
-      ask-core (>= 0.9.0)
-      ask-schema (>= 0.1)
+    ask-tools (0.6.3)
+      ask-core (>= 0.11.3)
+      ask-schema (>= 0.1.2)
 
 GEM
   remote: https://rubygems.org/
@@ -160,15 +161,17 @@ GEM
       uri (>= 0.13.1)
     addressable (2.9.0)
       public_suffix (>= 2.0.2, < 8.0)
-    ask-ruby-harness (0.3.1)
+    ask-ruby-harness (0.3.5)
       activerecord (>= 7.0)
-      ask-agent (>= 0.28.0)
-      ask-tools (>= 0.1)
+      ask-agent (>= 0.40.1)
+      ask-tools (>= 0.6.2)
       ask-tools-shell (>= 0.1)
     ask-sandbox-providers (0.1.2)
     ask-skills (0.4.1)
-    ask-state-providers (0.4.0)
-      ask-core (>= 0.1)
+    ask-state-providers (0.4.6)
+      ask-core (>= 0.11.3)
+      connection_pool (>= 2.2)
+      pg (>= 1.5)
     base64 (0.3.0)
     bigdecimal (4.1.2)
     builder (3.3.0)
@@ -252,6 +255,13 @@ GEM
       racc (~> 1.4)
     nokogiri (1.19.4-x86_64-linux-musl)
       racc (~> 1.4)
+    pg (1.6.3)
+    pg (1.6.3-aarch64-linux)
+    pg (1.6.3-aarch64-linux-musl)
+    pg (1.6.3-arm64-darwin)
+    pg (1.6.3-x86_64-darwin)
+    pg (1.6.3-x86_64-linux)
+    pg (1.6.3-x86_64-linux-musl)
     pp (0.6.4)
       prettyprint
     prettyprint (0.2.0)
@@ -366,21 +376,21 @@ CHECKSUMS
   activestorage (8.1.3) sha256=0564ce9309143951a67615e1bb4e090ee54b8befed417133cae614479b46384d
   activesupport (8.1.3) sha256=21a5e0dfbd4c3ddd9e1317ec6a4d782fa226e7867dc70b0743acda81a1dca20e
   addressable (2.9.0) sha256=7fdf6ac3660f7f4e867a0838be3f6cf722ace541dd97767fa42bc6cfa980c7af
-  ask-agent (0.40.0)
-  ask-auth (0.3.1)
-  ask-core (0.11.2)
+  ask-agent (0.40.7)
+  ask-auth (0.3.2)
+  ask-core (0.11.3)
   ask-instrumentation (0.2.1)
-  ask-llm-providers (0.12.0)
+  ask-llm-providers (0.12.2)
   ask-mcp (0.4.5)
-  ask-rails-harness (0.4.0)
-  ask-rails-harness-mcp (0.2.2)
-  ask-ruby-harness (0.3.1) sha256=b8b18f2e625770601170ccbb72bb89c04cc98600e7b63105f3fc5ed9f673b19f
+  ask-rails-harness (0.4.2)
+  ask-rails-harness-mcp (0.2.3)
+  ask-ruby-harness (0.3.5) sha256=f71651322986673343d8887e8aea93b1a0879df447f1959fffbed3053bb010de
   ask-sandbox-providers (0.1.2) sha256=388d2486d6d8f0b78a5fc87f90d56095892f88dff6197b74e081ea96833c0500
-  ask-schema (0.1.1)
+  ask-schema (0.1.2)
   ask-skills (0.4.1) sha256=6bcaaac8a10a0869e726a5047c9aecc33c4fcbca77c00d5ce3a78ee5da0fb8f9
-  ask-state-providers (0.4.0) sha256=7ac87c34862017398d2187d02b0d9b096f6f116f7fc861467e6922b07107695b
-  ask-tools (0.6.0)
-  ask-tools-shell (0.5.1)
+  ask-state-providers (0.4.6) sha256=8210949367e861193efa2c42ce748e18bb87945012179c92d29e92749876d01f
+  ask-tools (0.6.3)
+  ask-tools-shell (0.6.0)
   base64 (0.3.0) sha256=27337aeabad6ffae05c265c450490628ef3ebd4b67be58257393227588f5a97b
   bigdecimal (4.1.2) sha256=53d217666027eab4280346fba98e7d5b66baaae1b9c3c1c0ffe89d48188a3fbd
   builder (3.3.0) sha256=497918d2f9dca528fdca4b88d84e4ef4387256d984b8154e9d5d3fe5a9c8835f
@@ -427,6 +437,13 @@ CHECKSUMS
   nokogiri (1.19.4-x86_64-darwin) sha256=7fd17057d3e1f00e9954a74b3cd76595d3d4a5ef233b7ed9599047c204f70551
   nokogiri (1.19.4-x86_64-linux-gnu) sha256=379fae440b28915e3f19d752ce2dcf8465ed2b2fbefd2a7ca0dd497bc981a06a
   nokogiri (1.19.4-x86_64-linux-musl) sha256=17dfb7c1fa194ae02fbf7c51a7afc8d278045ab3fdacfd86f91d02d7b274470b
+  pg (1.6.3) sha256=1388d0563e13d2758c1089e35e973a3249e955c659592d10e5b77c468f628a99
+  pg (1.6.3-aarch64-linux) sha256=0698ad563e02383c27510b76bf7d4cd2de19cd1d16a5013f375dd473e4be72ea
+  pg (1.6.3-aarch64-linux-musl) sha256=06a75f4ea04b05140146f2a10550b8e0d9f006a79cdaf8b5b130cde40e3ecc2c
+  pg (1.6.3-arm64-darwin) sha256=7240330b572e6355d7c75a7de535edb5dfcbd6295d9c7777df4d9dddfb8c0e5f
+  pg (1.6.3-x86_64-darwin) sha256=ee2e04a17c0627225054ffeb43e31a95be9d7e93abda2737ea3ce4a62f2729d6
+  pg (1.6.3-x86_64-linux) sha256=5d9e188c8f7a0295d162b7b88a768d8452a899977d44f3274d1946d67920ae8d
+  pg (1.6.3-x86_64-linux-musl) sha256=9c9c90d98c72f78eb04c0f55e9618fe55d1512128e411035fe229ff427864009
   pp (0.6.4) sha256=dfcb0fce700c41456265922884f9fe195d7fbb0674a3578e6c0f69588e82b570
   prettyprint (0.2.0) sha256=2bc9e15581a94742064a3cc8b0fb9d45aae3d03a1baa6ef80922627a0766f193
   prism (1.9.0) sha256=7b530c6a9f92c24300014919c9dcbc055bf4cdf51ec30aed099b06cd6674ef85
