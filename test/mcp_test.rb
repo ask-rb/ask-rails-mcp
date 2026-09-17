@@ -53,11 +53,11 @@ class McpTest < Minitest::Test
 
   def test_tool_server_defines_all_tools
     defs = Ask::Rails::MCP.tool_server.definitions
-    assert_equal 7, defs.length, "Should define all 7 ask-rails-harness tools"
+    assert_equal 8, defs.length, "Should define all 8 ask-rails-harness tools"
 
     def_names = defs.map { |d| d[:name] }
     %w[schema_graph query_database read_model route_inspector read_log
-       run_command run_tests].each do |name|
+       run_command run_tests dev_url].each do |name|
       assert_includes def_names, name, "Missing tool: #{name}"
     end
   end
