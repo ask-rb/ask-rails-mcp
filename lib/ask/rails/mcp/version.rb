@@ -3,7 +3,7 @@
 module Ask
   module Rails
     module MCP
-      VERSION = "0.2.6"
+      VERSION = "0.2.7"
     end
   end
 end
